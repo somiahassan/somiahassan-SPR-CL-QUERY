@@ -15,6 +15,7 @@ import java.util.List;
  * between, for example, using an actual PostgresSQL, Oracle, or MySQL database.
  */
 public interface PetRepository extends JpaRepository<Pet, Long> {
+
     /**
      * This query is written in Spring Data's query language providing - JPQL, or Java Persistence Query Language.
      * You can notice here that the process of writing a query looks similar to a SQL statement, although the SELECT
@@ -54,7 +55,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
      * to initially compile.
      * @param species
      */
-    @Query("FROM Pet")
+    @Query("FROM Pet WHERE species = :species")
     List<Pet> lab1(@Param("species") String species);
 
     /**
@@ -62,7 +63,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
      * Replace 'FROM Pet' with the necessary query and add Param annotations. 'FROM Pet' is present to allow the app
      * to initially compile.
      */
-    @Query("FROM Pet")
+    @Query("FROM Pet WHERE name = :name OR age = :age")
     List<Pet> lab2(@Param("name") String name, @Param("age") int age);
 
     /**
@@ -70,7 +71,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
      * Replace 'FROM Pet' with the necessary query and add Param annotations. 'FROM Pet' is present to allow the app
      * to initially compile.
      */
-    @Query("FROM Pet")
+    @Query("SELECT AVG(age) FROM Pet")
     double lab3();
 
 }
